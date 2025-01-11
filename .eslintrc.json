@@ -1,3 +1,15 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": [
+    "next/core-web-vitals",
+     "next/typescript",
+    "next/core-web-vitals",
+    "plugin:prettier/recommended" // Prettier 推奨設定
+],
+  "rules": {
+    // カスタムルールをここに追加
+    "no-unused-vars": "off",  // 未使用変数のチェックを無効化
+    "@typescript-eslint/no-unused-vars": "off",
+    "prettier/prettier": "error" // Prettier ルールを ESLint に統合
+
+  }
 }
