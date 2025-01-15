@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { useEffect } from "react";
+import { isProductCode,toProductCode } from "@/types/product-code"
 
 const mockData = {
   productCode: "C0032131",
@@ -13,7 +14,10 @@ const mockData = {
 export default function ProductForm() {
   const commonSchema = z.object({});
   const productSchema = commonSchema.extend({
-    productCode: z.string().min(1, "商品名は必須項目です"),
+    productCode: z.string().min(1, "商品名は必須項目です").refine(isProductCode,{
+      message: 'ユーザーIDが不正だよ'
+  }).transform(toProductCode)
+  ,
     productName: z.string().nullish(),
     caption: z.string().nullish(),
   });
