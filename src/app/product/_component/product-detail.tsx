@@ -1,13 +1,16 @@
 import { UseFormRegister, FieldErrors } from "react-hook-form";
+import * as z from "zod";
+import { productSchema } from "@/product/types/product-scheme";
 
 type ProductDetailProps = {
-  register: UseFormRegister<any>;
-  errors: FieldErrors<any>;
+  register: UseFormRegister<z.infer<typeof productSchema>>;
+  errors: FieldErrors<z.infer<typeof productSchema>>;
 };
 
 export const ProductDetail = ({ register, errors }: ProductDetailProps) => {
   return (
     <>
+      {/* Category */}
       <div style={{ marginBottom: "15px" }}>
         <label
           htmlFor="category"
@@ -27,9 +30,11 @@ export const ProductDetail = ({ register, errors }: ProductDetailProps) => {
           }}
         />
         {errors.category && (
-          <p style={{ color: "red" }}>{errors.category.message?.toString()}</p>
+          <p style={{ color: "red" }}>{errors.category.message}</p>
         )}
       </div>
+
+      {/* Weight */}
       <div style={{ marginBottom: "15px" }}>
         <label
           htmlFor="weight"
@@ -49,10 +54,11 @@ export const ProductDetail = ({ register, errors }: ProductDetailProps) => {
           }}
         />
         {errors.weight && (
-          <p style={{ color: "red" }}>{errors.weight.message?.toString()}</p>
+          <p style={{ color: "red" }}>{errors.weight.message}</p>
         )}
       </div>
 
+      {/* Size */}
       <div style={{ marginBottom: "15px" }}>
         <label htmlFor="size" style={{ display: "block", marginBottom: "5px" }}>
           Size:
@@ -70,6 +76,7 @@ export const ProductDetail = ({ register, errors }: ProductDetailProps) => {
         />
       </div>
 
+      {/* Color */}
       <div style={{ marginBottom: "15px" }}>
         <label
           htmlFor="color"
