@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { useEffect } from "react";
 import { isProductCode, toProductCode } from "@/types/product-code";
-import ProductDetail from "@/product/_component/product-detail";
+import { ProductDetail } from "@/product/_component/product-detail";
 
 const mockData = {
   productCode: "C0032131",
@@ -18,7 +18,6 @@ const mockData = {
 };
 
 export default function ProductForm() {
-  
   const productSchema = z.object({
     productCode: z
       .string()

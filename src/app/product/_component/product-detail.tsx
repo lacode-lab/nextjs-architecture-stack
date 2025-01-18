@@ -54,10 +54,7 @@ export const ProductDetail = ({ register, errors }: ProductDetailProps) => {
       </div>
 
       <div style={{ marginBottom: "15px" }}>
-        <label
-          htmlFor="size"
-          style={{ display: "block", marginBottom: "5px" }}
-        >
+        <label htmlFor="size" style={{ display: "block", marginBottom: "5px" }}>
           Size:
         </label>
         <input
