@@ -1,11 +1,11 @@
 import { UseFormRegister, FieldErrors } from "react-hook-form";
 
 type ProductDetailProps = {
-  register: UseFormRegister<T>;
-  errors: FieldErrors<T>;
+  register: UseFormRegister<any>;
+  errors: FieldErrors<any>;
 };
 
-export default function ProductDetail({ register, errors }: ProductDetailProps) {
+export const ProductDetail = ({ register, errors }: ProductDetailProps) => {
   return (
     <>
       <div style={{ marginBottom: "15px" }}>
@@ -30,7 +30,6 @@ export default function ProductDetail({ register, errors }: ProductDetailProps) 
           <p style={{ color: "red" }}>{errors.category.message?.toString()}</p>
         )}
       </div>
-
       <div style={{ marginBottom: "15px" }}>
         <label
           htmlFor="weight"
@@ -95,4 +94,4 @@ export default function ProductDetail({ register, errors }: ProductDetailProps) 
       </div>
     </>
   );
-}
+};
