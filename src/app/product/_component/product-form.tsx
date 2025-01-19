@@ -7,16 +7,11 @@ import {
   ProductUseFormData,
   productSchema,
 } from "@/product/types/product-scheme"
-import { ZodError } from "zod"
 interface ProductFormProps {
   mockData: ProductUseFormData
-  severErrors: ZodError<ProductUseFormData> | null // エラー情報
 }
 
-export const ProductForm: React.FC<ProductFormProps> = ({
-  mockData,
-  severErrors,
-}) => {
+export const ProductForm: React.FC<ProductFormProps> = ({ mockData }) => {
   const {
     register,
     handleSubmit,

@@ -4,7 +4,7 @@ import { ZodError } from "zod"
 export async function getMockData() {
   try {
     const mockdata = {
-      productCode: "C0032131",
+      productCode: "1234",
       productName: "dummy product",
       caption: "",
       category: "",
@@ -24,6 +24,7 @@ export async function getMockData() {
       { status: 200, headers: { "Content-Type": "application/json" } },
     )
   } catch (error) {
+    console.log("sever error:", error)
     if (error instanceof ZodError) {
       // エラー時の状態を返す
       return new Response(
