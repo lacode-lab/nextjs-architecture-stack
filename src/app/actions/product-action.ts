@@ -1,7 +1,4 @@
-import {
-  ProductUseFormData,
-  productSchema,
-} from "@/product/types/product-scheme"
+import { productSchema } from "@/product/types/product-scheme"
 import { ZodError } from "zod"
 
 export async function getMockData() {
