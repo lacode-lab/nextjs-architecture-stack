@@ -1,11 +1,11 @@
-import { UseFormRegister, FieldErrors } from "react-hook-form";
-import * as z from "zod";
-import { productSchema } from "@/product/types/product-scheme";
+import { UseFormRegister, FieldErrors } from "react-hook-form"
+import * as z from "zod"
+import { productSchema } from "@/product/types/product-scheme"
 
 type ProductDetailProps = {
-  register: UseFormRegister<z.infer<typeof productSchema>>;
-  errors: FieldErrors<z.infer<typeof productSchema>>;
-};
+  register: UseFormRegister<z.infer<typeof productSchema>>
+  errors: FieldErrors<z.infer<typeof productSchema>>
+}
 
 export const ProductDetail = ({ register, errors }: ProductDetailProps) => {
   return (
@@ -97,5 +97,5 @@ export const ProductDetail = ({ register, errors }: ProductDetailProps) => {
         />
       </div>
     </>
-  );
-};
+  )
+}

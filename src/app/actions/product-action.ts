@@ -1,20 +1,51 @@
 import {
   ProductUseFormData,
   productSchema,
-} from "@/product/types/product-scheme";
-import { mock } from "node:test";
+} from "@/product/types/product-scheme"
+import { ZodError } from "zod"
 
 export async function getMockData() {
-  // モックデータを返す
-  const mockdata = {
-    productCode: "C0032131",
-    productName: "dummy product",
-    caption: "",
-    category: "",
-    weight: "",
-    size: "",
-    color: "",
-  };
-  // 型はzodに合わせる
-  return productSchema.parse(mockdata);
+  try {
+    const mockdata = {
+      productCode: "C0032131",
+      productName: "dummy product",
+      caption: "",
+      category: "",
+      weight: "",
+      size: "",
+      color: "",
+    }
+
+    // zodスキーマでデータを検証
+    const data = productSchema.parse(mockdata)
+
+    return new Response(
+      JSON.stringify({
+        data: data,
+        errors: null,
+      }),
+      { status: 200, headers: { "Content-Type": "application/json" } },
+    )
+  } catch (error) {
+    if (error instanceof ZodError) {
+      // エラー時の状態を返す
+      return new Response(
+        JSON.stringify({
+          data: null,
+          errors: error.issues,
+        }),
+        { status: 400, headers: { "Content-Type": "application/json" } },
+      )
+    }
+    return new Response(
+      JSON.stringify({
+        data: null,
+        errors: null,
+      }),
+      { status: 500, headers: { "Content-Type": "application/json" } },
+    )
+  }
 }
+// export async function merge(): Promise<Product> {
+
+// }

@@ -1,5 +1,5 @@
-import * as z from "zod";
-import { isProductCode, toProductCode } from "@/types/product-code";
+import * as z from "zod"
+import { isProductCode, toProductCode } from "@/types/product-code"
 
 export const productSchema = z.object({
   productCode: z
@@ -18,6 +18,6 @@ export const productSchema = z.object({
     .nullish(),
   size: z.string().nullish(),
   color: z.string().nullish(),
-});
+})
 
-export type ProductUseFormData = z.infer<typeof productSchema>;
+export type ProductUseFormData = z.infer<typeof productSchema>

@@ -1,17 +1,23 @@
-"use client";
+"use client"
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { ProductDetail } from "@/product/_component/product-detail";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { ProductDetail } from "@/product/_component/product-detail"
 import {
   ProductUseFormData,
   productSchema,
-} from "@/product/types/product-scheme";
+} from "@/product/types/product-scheme"
+import { useFormState } from "react-dom"
+import { ZodError } from "zod"
 interface ProductFormProps {
-  mockData: ProductUseFormData;
+  mockData: ProductUseFormData
+  severErrors: ZodError<ProductUseFormData> | null // エラー情報
 }
 
-export const ProductForm: React.FC<ProductFormProps> = ({ mockData }) => {
+export const ProductForm: React.FC<ProductFormProps> = ({
+  mockData,
+  severErrors,
+}) => {
   const {
     register,
     handleSubmit,
@@ -20,11 +26,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({ mockData }) => {
   } = useForm<ProductUseFormData>({
     resolver: zodResolver(productSchema),
     defaultValues: mockData, // サーバーから渡されたデフォルトデータを適用
-  });
+  })
 
   const onSubmit = (data: ProductUseFormData) => {
-    console.log("Submitted data:", data);
-  };
+    console.log("Submitted data:", data)
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -107,5 +113,5 @@ export const ProductForm: React.FC<ProductFormProps> = ({ mockData }) => {
         Submit
       </button>
     </form>
-  );
-};
+  )
+}
