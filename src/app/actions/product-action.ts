@@ -4,7 +4,7 @@ import { ZodError } from "zod"
 export async function getMockData() {
   try {
     const mockdata = {
-      productCode: "1234",
+      productCode: "",
       productName: "dummy product",
       caption: "",
       category: "",
