@@ -1,34 +1,41 @@
 "use client"
-
-import React from "react"
+import React, { SyntheticEvent, useState } from "react"
+import { Tabs, Tab, Box } from "@mui/material"
 import { useTabData } from "./tab-data-provider"
 import { fetchTabData } from "@/actions/fetch-tab-data"
 
 export const TabComponent = () => {
   const { activeTab, tabData, setActiveTab, setTabData } = useTabData()
 
-  const handleTabChange = async (tabId: string) => {
-    if (!tabData[tabId]) {
-      const data = await fetchTabData(tabId) // Server Actionsを呼び出し
-      setTabData(tabId, data)
+  const handleTabChange = async (event: SyntheticEvent, newValue: string) => {
+    if (!tabData[newValue]) {
+      const data = await fetchTabData(newValue) // サーバーからデータ取得
+      setTabData(newValue, data)
     }
-    setActiveTab(tabId)
+    setActiveTab(newValue) // アクティブなタブを変更
   }
-
   return (
-    <div>
-      <div>
-        <button onClick={() => handleTabChange("tab1")}>Tab 1</button>
-        <button onClick={() => handleTabChange("tab2")}>Tab 2</button>
-      </div>
-      <div>
+    <Box>
+      {/* タブの見た目 */}
+      <Tabs
+        value={activeTab}
+        onChange={handleTabChange}
+        aria-label="Tab example"
+        centered
+      >
+        <Tab label="Tab 1" value="tab1" />
+        <Tab label="Tab 2" value="tab2" />
+      </Tabs>
+
+      {/* タブのコンテンツ */}
+      <Box sx={{ mt: 2 }}>
         {activeTab === "tab1" && <TabContent data={tabData["tab1"]} />}
         {activeTab === "tab2" && <TabContent data={tabData["tab2"]} />}
-      </div>
-    </div>
+      </Box>
+    </Box>
   )
 }
 
 const TabContent = ({ data }: { data: any }) => (
-  <div>{JSON.stringify(data)}</div>
+  <Box>{JSON.stringify(data)}</Box>
 )
