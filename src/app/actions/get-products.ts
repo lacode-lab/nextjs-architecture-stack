@@ -1,9 +1,17 @@
 // Mockデータを返すgetProducts関数
+//Get Methodはlibのapiの下に移動予定
+import type { paths } from "@/types/lib/api/openapi-types"
+
+// レスポンス型を取得
+type GetProductsResponse =
+  paths["/products"]["get"]["responses"]["200"]["content"]["application/json"]
+
 export async function getProducts() {
   // const response = await fetch(`https://api.example.com/data`);
   // return await response.json();
   // モックデータ
-  const mockData = [
+
+  const mockData: GetProductsResponse = [
     {
       productName: "Product Item 1",
       price: 500,

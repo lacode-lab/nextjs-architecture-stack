@@ -10,11 +10,11 @@ interface Product {
   caption: string
 }
 
-interface ProductListTabProps {
+interface NoveltyListTabProps {
   data: Product[] // データをpropsとして受け取る
 }
 
-export const ProductListTab = ({ data }: ProductListTabProps) => {
+export const NoveltyListTab = ({ data }: NoveltyListTabProps) => {
   return (
     <Box
       sx={{

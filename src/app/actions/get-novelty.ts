@@ -1,7 +1,7 @@
 // Mockデータを返すgetNovelties関数
 export async function getNovelties() {
   // モックデータ
-  const mockData = [
+  const mockData2 = [
     {
       productName: "Novelty Item 1",
       price: 1000,
@@ -30,6 +30,6 @@ export async function getNovelties() {
 
   // 非同期関数としてモックデータを返す
   return new Promise((resolve) => {
-    setTimeout(() => resolve(mockData), 500) // 遅延を追加（500ms）
+    setTimeout(() => resolve(mockData2), 500) // 遅延を追加（500ms）
   })
 }
