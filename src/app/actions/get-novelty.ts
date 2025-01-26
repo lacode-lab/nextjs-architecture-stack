@@ -1,7 +1,14 @@
 // Mockデータを返すgetNovelties関数
+
+import type { paths } from "@/types/lib/api/openapi-types"
+
+// レスポンス型を取得
+type GetNoveltyResponse =
+  paths["/novelties"]["get"]["responses"]["200"]["content"]["application/json"]
+
 export async function getNovelties() {
   // モックデータ
-  const mockData2 = [
+  const mockData: GetNoveltyResponse = [
     {
       productName: "Novelty Item 1",
       price: 1000,
@@ -28,8 +35,7 @@ export async function getNovelties() {
     },
   ]
 
-  // 非同期関数としてモックデータを返す
   return new Promise((resolve) => {
-    setTimeout(() => resolve(mockData2), 500) // 遅延を追加（500ms）
+    setTimeout(() => resolve(mockData), 500)
   })
 }

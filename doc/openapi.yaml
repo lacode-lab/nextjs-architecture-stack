@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Product API
-  description: API for retrieving product information.
+  description: API for retrieving product and novelty information.
   version: 1.0.0
 paths:
   /products:
@@ -30,6 +30,32 @@ paths:
                     caption:
                       type: string
                       example: A reliable product for everyday use.
+  /novelties:
+    get:
+      summary: Retrieve a list of novelties
+      description: Returns a list of novelty items with their details.
+      responses:
+        '200':
+          description: A list of novelty items.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    productName:
+                      type: string
+                      example: Novelty Item 1
+                    price:
+                      type: integer
+                      example: 1000
+                    productCode:
+                      type: string
+                      example: NOV001
+                    caption:
+                      type: string
+                      example: A great novelty item for your collection.
 servers:
   - url: https://api.example.com
     description: Mock server
