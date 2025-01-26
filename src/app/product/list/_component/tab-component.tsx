@@ -15,11 +15,13 @@ export const TabComponent = () => {
     event: SyntheticEvent,
     tabId: "tab1" | "tab2",
   ) => {
-    const products = await getProducts()
-    const novelties = await getNovelties()
-
-    setProduct(products)
-    setNovelty(novelties)
+    if (tabId === "tab1" && !product) {
+      const products = await getProducts()
+      setProduct(products)
+    } else if (tabId === "tab2" && !novelty) {
+      const novelties = await getNovelties()
+      setNovelty(novelties)
+    }
 
     setActiveTab(tabId)
   }

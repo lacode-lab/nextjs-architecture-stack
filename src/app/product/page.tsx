@@ -27,7 +27,7 @@ export default async function Product() {
       {formattedErrors?.productCode && (
         <p style={{ color: "red" }}>{formattedErrors.productCode}</p>
       )}
-      <h1>＜Product Form＞</h1>
+      <h1>商品情報</h1>
       <br />
       <ProductForm mockData={data} />
     </div>
