@@ -2,16 +2,13 @@
 
 import React from "react"
 import { Card, CardContent, Typography, Box } from "@mui/material"
+import type { paths } from "@/types/lib/api/openapi-types"
 
-interface Product {
-  productName: string
-  price: number
-  productCode: string
-  caption: string
-}
+type GetProductsResponse =
+  paths["/products"]["get"]["responses"]["200"]["content"]["application/json"]
 
 interface ProductListTabProps {
-  data: Product[] // データをpropsとして受け取る
+  data: GetProductsResponse
 }
 
 export const ProductListTab = ({ data }: ProductListTabProps) => {

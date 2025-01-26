@@ -1,17 +1,23 @@
 "use client"
 import React, { createContext, useContext, useState, ReactNode } from "react"
+import type { paths } from "@/types/lib/api/openapi-types"
+
+type GetProductsResponse =
+  paths["/products"]["get"]["responses"]["200"]["content"]["application/json"]
+type GetNoveltyResponse =
+  paths["/novelties"]["get"]["responses"]["200"]["content"]["application/json"]
 
 interface TabDataContextProps {
-  activeTab: string
-  tabData: Record<string, any>
-  setActiveTab: (tab: string) => void
-  setTabData: (tabId: string, data: any) => void
+  activeTab: "tab1" | "tab2"
+  product: GetProductsResponse
+  novelty: GetNoveltyResponse
+  setActiveTab: (tab: "tab1" | "tab2") => void
+  setProduct: (data: GetProductsResponse) => void
+  setNovelty: (data: GetNoveltyResponse) => void
 }
 
-// Contextを作成
 const TabDataContext = createContext<TabDataContextProps | null>(null)
 
-// カスタムフック
 export const useTabData = () => {
   const context = useContext(TabDataContext)
   if (!context) {
@@ -20,24 +26,29 @@ export const useTabData = () => {
   return context
 }
 
-// Providerコンポーネント
 export const TabDataProvider = ({
   children,
-  initialData,
+  initialProduct,
+  initialNovelty,
 }: {
   children: ReactNode
-  initialData: Record<string, any>
+  initialProduct: GetProductsResponse
+  initialNovelty: GetNoveltyResponse
 }) => {
-  const [activeTab, setActiveTab] = useState("tab1")
-  const [tabData, setTabDataState] = useState<Record<string, any>>(initialData)
-
-  const setTabData = (tabId: string, data: any) => {
-    setTabDataState((prev) => ({ ...prev, [tabId]: data }))
-  }
+  const [activeTab, setActiveTab] = useState<"tab1" | "tab2">("tab1")
+  const [product, setProduct] = useState(initialProduct)
+  const [novelty, setNovelty] = useState(initialNovelty)
 
   return (
     <TabDataContext.Provider
-      value={{ activeTab, tabData, setActiveTab, setTabData }}
+      value={{
+        activeTab,
+        product,
+        novelty,
+        setActiveTab,
+        setProduct,
+        setNovelty,
+      }}
     >
       {children}
     </TabDataContext.Provider>

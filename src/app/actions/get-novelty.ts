@@ -1,12 +1,10 @@
-// Mockデータを返すgetNovelties関数
-
 import type { paths } from "@/types/lib/api/openapi-types"
 
 // レスポンス型を取得
 type GetNoveltyResponse =
   paths["/novelties"]["get"]["responses"]["200"]["content"]["application/json"]
 
-export async function getNovelties() {
+export async function getNovelties(): Promise<GetNoveltyResponse> {
   // モックデータ
   const mockData: GetNoveltyResponse = [
     {

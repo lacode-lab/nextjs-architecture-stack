@@ -6,7 +6,7 @@ import type { paths } from "@/types/lib/api/openapi-types"
 type GetProductsResponse =
   paths["/products"]["get"]["responses"]["200"]["content"]["application/json"]
 
-export async function getProducts() {
+export async function getProducts(): Promise<GetProductsResponse> {
   // const response = await fetch(`https://api.example.com/data`);
   // return await response.json();
   // モックデータ

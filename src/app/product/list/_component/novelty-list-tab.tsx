@@ -3,15 +3,13 @@
 import React from "react"
 import { Card, CardContent, Typography, Box } from "@mui/material"
 
-interface Product {
-  productName: string
-  price: number
-  productCode: string
-  caption: string
-}
+import type { paths } from "@/types/lib/api/openapi-types"
+
+type GetNoveltyResponse =
+  paths["/novelties"]["get"]["responses"]["200"]["content"]["application/json"]
 
 interface NoveltyListTabProps {
-  data: Product[] // データをpropsとして受け取る
+  data: GetNoveltyResponse
 }
 
 export const NoveltyListTab = ({ data }: NoveltyListTabProps) => {

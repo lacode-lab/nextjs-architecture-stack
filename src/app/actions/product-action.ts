@@ -44,6 +44,3 @@ export async function getMockData() {
     )
   }
 }
-// export async function merge(): Promise<Product> {
-
-// }

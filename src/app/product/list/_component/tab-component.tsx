@@ -1,26 +1,31 @@
 "use client"
-import React, { SyntheticEvent, useState } from "react"
+import React, { SyntheticEvent } from "react"
 import { Tabs, Tab, Box } from "@mui/material"
 import { useTabData } from "./tab-data-provider"
 import { ProductListTab } from "./product-list-tab"
 import { NoveltyListTab } from "./novelty-list-tab"
-
-import { fetchTabData } from "@/actions/fetch-tab-data"
+import { getNovelties } from "@/actions/get-novelty"
+import { getProducts } from "@/actions/get-products"
 
 export const TabComponent = () => {
-  const { activeTab, tabData, setActiveTab, setTabData } = useTabData()
+  const { activeTab, setActiveTab, product, novelty, setProduct, setNovelty } =
+    useTabData()
 
-  const handleTabChange = async (event: SyntheticEvent, tabId: string) => {
-    if (!tabData[tabId]) {
-      const data = await fetchTabData(tabId) // サーバーからデータ取得
-      setTabData(tabId, data)
-    }
+  const handleTabChange = async (
+    event: SyntheticEvent,
+    tabId: "tab1" | "tab2",
+  ) => {
+    const products = await getProducts()
+    const novelties = await getNovelties()
 
-    setActiveTab(tabId) // アクティブなタブを変更
+    setProduct(products)
+    setNovelty(novelties)
+
+    setActiveTab(tabId)
   }
+
   return (
     <Box>
-      {/* タブの見た目 */}
       <Tabs
         value={activeTab}
         onChange={handleTabChange}
@@ -30,16 +35,10 @@ export const TabComponent = () => {
         <Tab label="Tab 1" value="tab1" />
         <Tab label="Tab 2" value="tab2" />
       </Tabs>
-
-      {/* タブのコンテンツ */}
       <Box sx={{ mt: 2 }}>
-        {activeTab === "tab1" && <ProductListTab data={tabData["tab1"]} />}
-        {activeTab === "tab2" && <NoveltyListTab data={tabData["tab2"]} />}
+        {activeTab === "tab1" && <ProductListTab data={product} />}
+        {activeTab === "tab2" && <NoveltyListTab data={novelty} />}
       </Box>
     </Box>
   )
 }
-
-const TabContent = ({ data }: { data: any }) => (
-  <Box>{JSON.stringify(data)}</Box>
-)
