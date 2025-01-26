@@ -1,4 +1,3 @@
-import { ProductUseFormData } from "@/product/types/product-scheme"
 import { ProductForm } from "@/product/_component/product-form"
 import { getMockData } from "@/actions/product-action"
 

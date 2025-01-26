@@ -6,19 +6,17 @@ import { ProductListTab } from "./product-list-tab"
 import { NoveltyListTab } from "./novelty-list-tab"
 import { getNovelties } from "@/actions/get-novelty"
 import { getProducts } from "@/actions/get-products"
+import { TabId } from "@/product/list/types/tab-id"
 
 export const TabComponent = () => {
   const { activeTab, setActiveTab, product, novelty, setProduct, setNovelty } =
     useTabData()
 
-  const handleTabChange = async (
-    event: SyntheticEvent,
-    tabId: "tab1" | "tab2",
-  ) => {
-    if (tabId === "tab1" && !product) {
+  const handleTabChange = async (_: SyntheticEvent, tabId: TabId) => {
+    if (tabId === TabId.Product && !product) {
       const products = await getProducts()
       setProduct(products)
-    } else if (tabId === "tab2" && !novelty) {
+    } else if (tabId === TabId.Novelty && !novelty) {
       const novelties = await getNovelties()
       setNovelty(novelties)
     }
@@ -34,12 +32,12 @@ export const TabComponent = () => {
         aria-label="Tab example"
         centered
       >
-        <Tab label="Tab 1" value="tab1" />
-        <Tab label="Tab 2" value="tab2" />
+        <Tab label="Product" value={TabId.Product} />
+        <Tab label="Novelty" value={TabId.Novelty} />
       </Tabs>
       <Box sx={{ mt: 2 }}>
-        {activeTab === "tab1" && <ProductListTab data={product} />}
-        {activeTab === "tab2" && <NoveltyListTab data={novelty} />}
+        {activeTab === TabId.Product && <ProductListTab data={product} />}
+        {activeTab === TabId.Novelty && <NoveltyListTab data={novelty} />}
       </Box>
     </Box>
   )

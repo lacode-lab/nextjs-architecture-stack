@@ -1,17 +1,17 @@
 "use client"
 import React, { createContext, useContext, useState, ReactNode } from "react"
 import type { paths } from "@/types/lib/api/openapi-types"
-
+import { TabId } from "@/product/list/types/tab-id"
 type GetProductsResponse =
   paths["/products"]["get"]["responses"]["200"]["content"]["application/json"]
 type GetNoveltyResponse =
   paths["/novelties"]["get"]["responses"]["200"]["content"]["application/json"]
 
 interface TabDataContextProps {
-  activeTab: "tab1" | "tab2"
+  activeTab: TabId
   product: GetProductsResponse
   novelty: GetNoveltyResponse
-  setActiveTab: (tab: "tab1" | "tab2") => void
+  setActiveTab: (tab: TabId) => void
   setProduct: (data: GetProductsResponse) => void
   setNovelty: (data: GetNoveltyResponse) => void
 }
@@ -35,7 +35,7 @@ export const TabDataProvider = ({
   initialProduct: GetProductsResponse
   initialNovelty: GetNoveltyResponse
 }) => {
-  const [activeTab, setActiveTab] = useState<"tab1" | "tab2">("tab1")
+  const [activeTab, setActiveTab] = useState<TabId>(TabId.Product)
   const [product, setProduct] = useState(initialProduct)
   const [novelty, setNovelty] = useState(initialNovelty)
 
