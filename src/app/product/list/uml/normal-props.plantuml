@@ -1,0 +1,16 @@
+@startuml
+actor User as U
+participant PageComponent
+participant TabComponent
+participant handleTabChange
+participant API
+
+U -> PageComponent: Access Page
+PageComponent -> TabComponent: Pass initialProduct & initialNovelty as props
+U -> TabComponent: Switch Tab
+TabComponent -> handleTabChange: Handle Tab Change
+handleTabChange -> API: Fetch Data
+API --> handleTabChange: Return Data
+handleTabChange -> PageComponent: Update Props
+PageComponent -> TabComponent: Re-render with Updated Props
+@enduml

@@ -33,6 +33,14 @@
 
 ### **処理フロー図**
 
-#### **1. 現在の `TabDataProvider` のフロー**
+# 処理フロー説明
 
-#### **2.props を使う場合のフロー**
+## 1. Provider パターン
+以下は `TabDataProvider` を使用した場合の処理フローです。
+
+![Provider フロー](./uml/provider.png)
+
+## 2. Props パターン
+以下は `props` を使用した場合の処理フローです。
+
+![Props フロー](./uml/normal-props.png)
