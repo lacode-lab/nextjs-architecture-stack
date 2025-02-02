@@ -7,14 +7,16 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format" : "npx next lint --fix",
+    "format": "npx next lint --fix",
     "generate:types": "openapi-typescript ./doc/openapi.yaml -o ./src/app/types/lib/api/openapi-types.ts"
   },
   "dependencies": {
+    "@apollo/client": "^3.12.8",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@hookform/resolvers": "^3.10.0",
     "@mui/material": "^6.4.1",
+    "graphql": "^16.10.0",
     "next": "14.2.21",
     "openapi-fetch": "^0.13.4",
     "react": "^18",

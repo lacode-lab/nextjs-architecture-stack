@@ -2,44 +2,88 @@
 //Get Methodはlibのapiの下に移動予定
 import type { paths } from "@/types/lib/api/openapi-types"
 
-// レスポンス型を取得
+import { gql } from "@apollo/client"
+import client from "@/lib/apollo-client"
+
+// 環境変数でモックモードを制御
+const isMockMode = process.env.NEXT_PUBLIC_MOCK_MODE === "true"
+const mockProducts: GetProductsResponse = [
+  {
+    productName: "Product Item 1",
+    price: 500,
+    productCode: "PRD001",
+    caption: "A reliable product for everyday use.",
+  },
+  {
+    productName: "Product Item 2",
+    price: 750,
+    productCode: "PRD002",
+    caption: "This product combines quality and value.",
+  },
+  {
+    productName: "Product Item 3",
+    price: 1200,
+    productCode: "PRD003",
+    caption: "Premium product with excellent reviews.",
+  },
+  {
+    productName: "Product Item 4",
+    price: 300,
+    productCode: "PRD004",
+    caption: "Affordable product for everyone.",
+  },
+]
+
+// GraphQL クエリの定義
+const GET_PRODUCTS_QUERY = gql`
+  query {
+    getAllProducts {
+      productName
+      price
+      productCode
+      caption
+    }
+  }
+`
+
 type GetProductsResponse =
   paths["/products"]["get"]["responses"]["200"]["content"]["application/json"]
 
 export async function getProducts(): Promise<GetProductsResponse> {
-  // const response = await fetch(`https://api.example.com/data`);
-  // return await response.json();
-  // モックデータ
+  if (isMockMode) {
+    // モックモードの場合はモックデータを返す
+    console.log("Mock mode enabled: Returning mock products.")
+    return mockProducts
+  }
 
-  const mockData: GetProductsResponse = [
-    {
-      productName: "Product Item 1",
-      price: 500,
-      productCode: "PRD001",
-      caption: "A reliable product for everyday use.",
-    },
-    {
-      productName: "Product Item 2",
-      price: 750,
-      productCode: "PRD002",
-      caption: "This product combines quality and value.",
-    },
-    {
-      productName: "Product Item 3",
-      price: 1200,
-      productCode: "PRD003",
-      caption: "Premium product with excellent reviews.",
-    },
-    {
-      productName: "Product Item 4",
-      price: 300,
-      productCode: "PRD004",
-      caption: "Affordable product for everyone.",
-    },
-  ]
-
-  // 非同期関数としてモックデータを返す
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(mockData), 500) // 遅延を追加（500ms）
-  })
+  try {
+    console.log("Sending GraphQL request...")
+    const { data } = await client.query({
+      query: GET_PRODUCTS_QUERY,
+      fetchPolicy: "no-cache",
+    })
+    if (!data) {
+      throw new Error("No data returned from GraphQL query")
+    }
+    console.log("GraphQL response received:", data)
+    return data.getAllProducts
+  } catch (error) {
+    console.error("GraphQL query error:", error)
+    return []
+  }
 }
+
+// // レスポンス型を取得
+// type GetProductsResponse =
+//   paths["/products"]["get"]["responses"]["200"]["content"]["application/json"]
+
+// export async function getProducts(): Promise<GetProductsResponse> {
+//   // const response = await fetch(`https://api.example.com/data`);
+//   // return await response.json();
+//   // モックデータ
+
+// // 非同期関数としてモックデータを返す
+// return new Promise((resolve) => {
+//   setTimeout(() => resolve(mockData), 500) // 遅延を追加（500ms）
+// })
+// }
