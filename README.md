@@ -153,3 +153,12 @@ npm i -D openapi-typescript typescript
 ```
 npx next lint --fix
 ```
+
+下記を設定しないと動きません。
+.env.local
+```
+BASE_ENDPOINT_GRAPHQL=http://localhost:8080/graphql
+NEXT_PUBLIC_MOCK_MODE=false
+NODE_ENV=development
+
+```
