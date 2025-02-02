@@ -13,10 +13,11 @@ export const TabComponent = () => {
     useTabData()
 
   const handleTabChange = async (_: SyntheticEvent, tabId: TabId) => {
-    if (tabId === TabId.Product && !product) {
+
+    if (tabId === TabId.Product) {
       const products = await getProducts()
       setProduct(products)
-    } else if (tabId === TabId.Novelty && !novelty) {
+    } else if (tabId === TabId.Novelty) {
       const novelties = await getNovelties()
       setNovelty(novelties)
     }

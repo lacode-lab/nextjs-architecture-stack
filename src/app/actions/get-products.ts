@@ -65,25 +65,9 @@ export async function getProducts(): Promise<GetProductsResponse> {
     if (!data) {
       throw new Error("No data returned from GraphQL query")
     }
-    console.log("GraphQL response received:", data)
     return data.getAllProducts
   } catch (error) {
     console.error("GraphQL query error:", error)
     return []
   }
 }
-
-// // レスポンス型を取得
-// type GetProductsResponse =
-//   paths["/products"]["get"]["responses"]["200"]["content"]["application/json"]
-
-// export async function getProducts(): Promise<GetProductsResponse> {
-//   // const response = await fetch(`https://api.example.com/data`);
-//   // return await response.json();
-//   // モックデータ
-
-// // 非同期関数としてモックデータを返す
-// return new Promise((resolve) => {
-//   setTimeout(() => resolve(mockData), 500) // 遅延を追加（500ms）
-// })
-// }
