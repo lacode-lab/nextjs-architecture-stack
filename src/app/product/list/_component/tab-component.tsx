@@ -1,6 +1,7 @@
 "use client"
 import React, { SyntheticEvent } from "react"
 import { Tabs, Tab, Box } from "@mui/material"
+import { TabContext, TabPanel } from "@mui/lab"
 import { useTabData } from "./tab-data-provider"
 import { ProductListTab } from "./product-list-tab"
 import { NoveltyListTab } from "./novelty-list-tab"
@@ -13,7 +14,6 @@ export const TabComponent = () => {
     useTabData()
 
   const handleTabChange = async (_: SyntheticEvent, tabId: TabId) => {
-
     if (tabId === TabId.Product) {
       const products = await getProducts()
       setProduct(products)
@@ -36,10 +36,14 @@ export const TabComponent = () => {
         <Tab label="Product" value={TabId.Product} />
         <Tab label="Novelty" value={TabId.Novelty} />
       </Tabs>
-      <Box sx={{ mt: 2 }}>
-        {activeTab === TabId.Product && <ProductListTab data={product} />}
-        {activeTab === TabId.Novelty && <NoveltyListTab data={novelty} />}
-      </Box>
+      <TabContext value={activeTab}>
+        <TabPanel value={TabId.Product}>
+          <ProductListTab data={product} />
+        </TabPanel>
+        <TabPanel value={TabId.Novelty}>
+          <NoveltyListTab data={novelty} />
+        </TabPanel>
+      </TabContext>
     </Box>
   )
 }

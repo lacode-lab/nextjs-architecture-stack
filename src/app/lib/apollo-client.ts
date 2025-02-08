@@ -11,10 +11,12 @@ const defaultOptions: DefaultOptions = {
     fetchPolicy: "no-cache",
   },
 }
+// if (typeof window !== "undefined") {
+//   throw new Error("ApolloClient must only be used on the server side");
+// }
 
 const client = new ApolloClient({
-  // uri: process.env.BASE_ENDPOINT_GRAPHQL || "http://localhost:8080/graphql",
-  uri: process.env.NEXT_PUBLIC_BASE_ENDPOINT_GRAPHQL,
+  uri: process.env.BASE_ENDPOINT_GRAPHQL,
   cache: new InMemoryCache(),
   defaultOptions: defaultOptions,
   connectToDevTools: true,

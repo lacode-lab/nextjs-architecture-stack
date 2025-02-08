@@ -1,3 +1,4 @@
+"use server"
 // Mockデータを返すgetProducts関数
 //Get Methodはlibのapiの下に移動予定
 import type { paths } from "@/types/lib/api/openapi-types"
