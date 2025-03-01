@@ -21,7 +21,7 @@ export const ProductDetail = ({ register, errors }: ProductDetailProps) => {
         <input
           type="text"
           id="category"
-          {...register("category")}
+          {...register("detail.category")}
           style={{
             width: "100%",
             padding: "8px",
@@ -29,8 +29,8 @@ export const ProductDetail = ({ register, errors }: ProductDetailProps) => {
             borderRadius: "4px",
           }}
         />
-        {errors.category && (
-          <p style={{ color: "red" }}>{errors.category.message}</p>
+        {errors.detail?.category && (
+          <p style={{ color: "red" }}>{errors.detail.category.message}</p>
         )}
       </div>
 
@@ -45,7 +45,7 @@ export const ProductDetail = ({ register, errors }: ProductDetailProps) => {
         <input
           type="text"
           id="weight"
-          {...register("weight")}
+          {...register("detail.weight")}
           style={{
             width: "100%",
             padding: "8px",
@@ -53,8 +53,8 @@ export const ProductDetail = ({ register, errors }: ProductDetailProps) => {
             borderRadius: "4px",
           }}
         />
-        {errors.weight && (
-          <p style={{ color: "red" }}>{errors.weight.message}</p>
+        {errors.detail?.weight && (
+          <p style={{ color: "red" }}>{errors.detail.weight.message}</p>
         )}
       </div>
 
@@ -66,7 +66,7 @@ export const ProductDetail = ({ register, errors }: ProductDetailProps) => {
         <input
           type="text"
           id="size"
-          {...register("size")}
+          {...register("detail.size")}
           style={{
             width: "100%",
             padding: "8px",
@@ -87,7 +87,7 @@ export const ProductDetail = ({ register, errors }: ProductDetailProps) => {
         <input
           type="text"
           id="color"
-          {...register("color")}
+          {...register("detail.color")}
           style={{
             width: "100%",
             padding: "8px",
