@@ -28,9 +28,14 @@ export const TypeBTab: React.FC<TypeBTabProps> = ({ control, errors }) => {
           />
         )}
       />
-      {errors.tabs?.janCode?.message && (
-        <p style={{ color: "red" }}>{errors.tabs.janCode.message}</p>
-      )}
+      {errors.tabs &&
+        typeof errors.tabs === "object" &&
+        "janCode" in errors.tabs &&
+        (errors.tabs.janCode as { message?: string })?.message && (
+          <p style={{ color: "red" }}>
+            {(errors.tabs.janCode as { message: string }).message}
+          </p>
+        )}
     </div>
   )
 }

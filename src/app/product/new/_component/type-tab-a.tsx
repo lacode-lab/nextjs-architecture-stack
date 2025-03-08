@@ -8,6 +8,7 @@ interface TypeATabProps {
 }
 
 export const TypeATab: React.FC<TypeATabProps> = ({ control, errors }) => {
+
   return (
     <div>
       <label htmlFor="specialCode">Special Code:</label>
@@ -28,9 +29,14 @@ export const TypeATab: React.FC<TypeATabProps> = ({ control, errors }) => {
           />
         )}
       />
-      {errors.tabs?.specialCode?.message && (
-        <p style={{ color: "red" }}>{errors.tabs.specialCode.message}</p>
-      )}
+      {errors.tabs &&
+        typeof errors.tabs === "object" &&
+        "specialCode" in errors.tabs &&
+        (errors.tabs.specialCode as { message?: string })?.message && (
+          <p style={{ color: "red" }}>
+            {(errors.tabs.specialCode as { message: string }).message}
+          </p>
+        )}
     </div>
   )
 }
