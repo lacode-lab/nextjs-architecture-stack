@@ -70,9 +70,9 @@ export default async function Product() {
   return (
     //一旦商品の例だけ、項目の下に出すことも可能。
     <div style={{ maxWidth: "500px", margin: "0 auto", padding: "20px" }}>
-      {formattedErrors?.productCode && (
+      {/* {formattedErrors?.productCode && (
         <p style={{ color: "red" }}>{formattedErrors.productCode}</p>
-      )}
+      )} */}
       <h1>商品情報</h1>
       <br />
       <ProductForm defaultValues={defaultValues} />

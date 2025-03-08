@@ -23,7 +23,14 @@ export const ProductForm: React.FC<ProductFormProps> = ({ defaultValues }) => {
     newValue: "typeA" | "typeB",
   ) => {
     setTabValue(newValue)
-    setValue("tabType", newValue) // タブを切り替えた際に tabType を更新
+    reset({
+      ...defaultValues,
+      tabType: newValue, // タブの種類を更新
+      tabs:
+        newValue === "typeA"
+          ? { tabType: "typeA", specialCode: "" } // typeA の初期値
+          : { tabType: "typeB", janCode: "" }, // typeB の初期値
+    });
   }
 
   const {
@@ -35,7 +42,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ defaultValues }) => {
     reset,
   } = useForm<ProductSchemaForm>({
     resolver: zodResolver(productSchema),
-    defaultValues: { ...defaultValues, tabType: "typeA" }, // 初期値に tabType を含める
+    defaultValues: defaultValues ,
   })
 
   const onSubmit = (data: ProductSchemaForm) => {
@@ -176,8 +183,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ defaultValues }) => {
           borderRadius: "4px",
           cursor: "pointer",
         }}
-      >
-        Submit
+      >        Submit
       </button>
     </form>
   )
