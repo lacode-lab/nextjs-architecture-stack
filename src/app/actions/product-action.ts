@@ -7,10 +7,21 @@ export async function getMockData() {
       productCode: "",
       productName: "dummy product",
       caption: "",
-      category: "",
-      weight: "",
-      size: "",
-      color: "",
+      detail: {
+        category: "",
+        weight: "",
+        size: "",
+        color: "",
+      },
+      inventory: {
+        stock: 0,
+        minStock: 0,
+        maxPurchase: 1,
+      },
+      tabs: {
+        tabType: "typeA",
+        specialCode: "",
+      },
     }
 
     // zodスキーマでデータを検証

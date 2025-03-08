@@ -2,25 +2,30 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import { useState } from "react"
 import { ProductDetail } from "@/product/new/_component/product-detail"
 import {
   ProductSchemaForm,
   productSchema,
 } from "@/product/types/product-scheme"
-interface ProductFormProps {
-  mockData: ProductSchemaForm
-}
 import { Tabs, Tab, Box } from "@mui/material"
 import { TabContext, TabPanel } from "@mui/lab"
 
-export const ProductForm: React.FC<ProductFormProps> = ({ mockData }) => {
-  const [tabValue, setTabValue] = useState("typeA")
+interface ProductFormProps {
+  defaultValues: ProductSchemaForm
+}
 
-  const handleTabChange = (_: React.SyntheticEvent, newValue: string) => {
+export const ProductForm: React.FC<ProductFormProps> = ({ defaultValues }) => {
+  const [tabValue, setTabValue] = useState<"typeA" | "typeB">("typeA")
+
+  const handleTabChange = (
+    _: React.SyntheticEvent,
+    newValue: "typeA" | "typeB",
+  ) => {
     setTabValue(newValue)
+    setValue("tabType", newValue) // タブを切り替えた際に tabType を更新
   }
 
-  
   const {
     control,
     setValue,
@@ -30,7 +35,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ mockData }) => {
     reset,
   } = useForm<ProductSchemaForm>({
     resolver: zodResolver(productSchema),
-    defaultValues: mockData, // サーバーから渡されたデフォルトデータを適用
+    defaultValues: { ...defaultValues, tabType: "typeA" }, // 初期値に tabType を含める
   })
 
   const onSubmit = (data: ProductSchemaForm) => {
@@ -103,28 +108,47 @@ export const ProductForm: React.FC<ProductFormProps> = ({ mockData }) => {
       </div>
 
       <ProductDetail register={register} errors={errors} />
+
       <TabContext value={tabValue}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs value={tabValue} onChange={handleTabChange}>
+          <Tabs
+            value={tabValue}
+            onChange={(event, newValue) =>
+              handleTabChange(event, newValue as "typeA" | "typeB")
+            }
+          >
             <Tab label="Type A" value="typeA" />
             <Tab label="Type B" value="typeB" />
           </Tabs>
         </Box>
         <TabPanel value="typeA">
           <label htmlFor="specialCode">Special Code:</label>
-          <input type="text" id="specialCode" {...register("tabs.specialCode")} />
-          {errors.tabs?.specialCode && (
-            <p style={{ color: "red" }}>{errors.tabs.specialCode.message}</p>
-          )}
+          <input
+            type="text"
+            id="specialCode"
+            {...register("tabs.specialCode")}
+          />
+          {errors.tabs &&
+            typeof errors.tabs === "object" &&
+            "specialCode" in errors.tabs && (
+              <p style={{ color: "red" }}>
+                {(errors.tabs as any).specialCode.message}
+              </p>
+            )}
         </TabPanel>
         <TabPanel value="typeB">
           <label htmlFor="janCode">Jan Code:</label>
           <input type="text" id="janCode" {...register("tabs.janCode")} />
-          {errors.tabs?.janCode && (
-            <p style={{ color: "red" }}>{errors.tabs.janCode.message}</p>
-          )}
+          {errors.tabs &&
+            typeof errors.tabs === "object" &&
+            "janCode" in errors.tabs && (
+              <p style={{ color: "red" }}>
+                {(errors.tabs as any).janCode.message}
+              </p>
+            )}
         </TabPanel>
       </TabContext>
+
       <button
         type="submit"
         style={{
