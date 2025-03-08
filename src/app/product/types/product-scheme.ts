@@ -6,6 +6,10 @@ import { typeASchema } from "./type-a-schema"
 import { typeBSchema } from "./type-b-schema"
 
 
+export const tabSchema = z.discriminatedUnion('tabType', [
+typeASchema,
+typeBSchema,])
+
 export const productSchema = z.object({
   productCode: z
     .string()
@@ -16,10 +20,9 @@ export const productSchema = z.object({
     .transform(toProductCode),
   productName: z.string().nullish(),
   caption: z.string().nullish(),
-  typeA: typeASchema,
-  typeB: typeBSchema,
   detail: productDetailSchema,
   inventory: inventorySchema,
+  tabs: tabSchema,
 })
 
 export type ProductSchemaForm = z.infer<typeof productSchema>

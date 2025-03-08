@@ -2,7 +2,7 @@ import { TextField } from "@mui/material"
 import { UseFormRegister, FieldErrors } from "react-hook-form"
 import * as z from "zod"
 import { productSchema } from "@/product/types/product-scheme"
-import { inventorySchema } from "../types/inventory-schema"
+import { inventorySchema } from "../../types/inventory-schema"
 
 type StockProps = {
   register: UseFormRegister<z.infer<typeof inventorySchema>>

@@ -1,4 +1,4 @@
-import { ProductForm } from "@/product/_component/product-form"
+import { ProductForm } from "@/product/new/_component/product-form"
 import { getMockData } from "@/actions/product-action"
 
 function formatErrors(errors: any[]): Record<string, string> {
