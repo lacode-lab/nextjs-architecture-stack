@@ -39,6 +39,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ defaultValues }) => {
   })
 
   const onSubmit = (data: ProductSchemaForm) => {
+    
     console.log("Submitted data:", data)
   }
 
@@ -127,6 +128,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({ defaultValues }) => {
             type="text"
             id="specialCode"
             {...register("tabs.specialCode")}
+            style={{
+              width: "100%",
+              padding: "8px",
+              border: "1px solid #ccc",
+              borderRadius: "4px",
+            }}
           />
           {errors.tabs &&
             typeof errors.tabs === "object" &&
@@ -138,7 +145,17 @@ export const ProductForm: React.FC<ProductFormProps> = ({ defaultValues }) => {
         </TabPanel>
         <TabPanel value="typeB">
           <label htmlFor="janCode">Jan Code:</label>
-          <input type="text" id="janCode" {...register("tabs.janCode")} />
+          <input
+            type="text"
+            id="janCode"
+            {...register("tabs.janCode")}
+            style={{
+              width: "100%",
+              padding: "8px",
+              border: "1px solid #ccc",
+              borderRadius: "4px",
+            }}
+          />
           {errors.tabs &&
             typeof errors.tabs === "object" &&
             "janCode" in errors.tabs && (
