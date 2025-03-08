@@ -1,9 +1,10 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+import { useForm,FieldErrors } from "react-hook-form"
 import { useState } from "react"
 import { ProductDetail } from "@/product/new/_component/product-detail"
+import { StockDetail } from "@/product/new/_component/inventory"
 import {
   ProductSchemaForm,
   productSchema,
@@ -18,40 +19,47 @@ interface ProductFormProps {
 export const ProductForm: React.FC<ProductFormProps> = ({ defaultValues }) => {
   const [tabValue, setTabValue] = useState<"typeA" | "typeB">("typeA")
 
-  const handleTabChange = (
-    _: React.SyntheticEvent,
-    newValue: "typeA" | "typeB",
-  ) => {
-    setTabValue(newValue)
-    reset({
-      ...defaultValues,
-      tabType: newValue, // タブの種類を更新
-      tabs:
-        newValue === "typeA"
-          ? { tabType: "typeA", specialCode: "" } // typeA の初期値
-          : { tabType: "typeB", janCode: "" }, // typeB の初期値
-    });
-  }
-
   const {
     control,
     setValue,
+    clearErrors,
+    resetField,
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm<ProductSchemaForm>({
     resolver: zodResolver(productSchema),
-    defaultValues: defaultValues ,
+    defaultValues: defaultValues,
   })
 
+  const handleTabChange = (
+    _: React.SyntheticEvent,
+    newValue: "typeA" | "typeB",
+  ) => {
+    setTabValue(newValue)
+    setValue("tabType", newValue)
+
+    // `tabs` のエラーをクリアしつつ、値もクリア
+    clearErrors("tabs")
+    resetField("tabs", {
+      defaultValue:
+        newValue === "typeA"
+          ? { tabType: "typeA", specialCode: "" }
+          : { tabType: "typeB", janCode: "" },
+    })
+  }
+
   const onSubmit = (data: ProductSchemaForm) => {
-    
     console.log("Submitted data:", data)
   }
 
+  const onError = (errors: FieldErrors<ProductSchemaForm>) => {
+    console.log("Form errors:", errors)
+  }
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit, onError)}>
       <div style={{ marginBottom: "15px" }}>
         <label
           htmlFor="productCode"
@@ -116,6 +124,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ defaultValues }) => {
       </div>
 
       <ProductDetail register={register} errors={errors} />
+      <StockDetail register={register} errors={errors} />
 
       <TabContext value={tabValue}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -183,7 +192,9 @@ export const ProductForm: React.FC<ProductFormProps> = ({ defaultValues }) => {
           borderRadius: "4px",
           cursor: "pointer",
         }}
-      >        Submit
+      >
+        {" "}
+        Submit
       </button>
     </form>
   )
