@@ -4,25 +4,27 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { ProductDetail } from "@/product/_component/product-detail"
 import {
-  ProductUseFormData,
+  ProductSchemaForm,
   productSchema,
 } from "@/product/types/product-scheme"
 interface ProductFormProps {
-  mockData: ProductUseFormData
+  mockData: ProductSchemaForm
 }
 
 export const ProductForm: React.FC<ProductFormProps> = ({ mockData }) => {
   const {
+    control,
+    setValue,
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<ProductUseFormData>({
+  } = useForm<ProductSchemaForm>({
     resolver: zodResolver(productSchema),
     defaultValues: mockData, // サーバーから渡されたデフォルトデータを適用
   })
 
-  const onSubmit = (data: ProductUseFormData) => {
+  const onSubmit = (data: ProductSchemaForm) => {
     console.log("Submitted data:", data)
   }
 
