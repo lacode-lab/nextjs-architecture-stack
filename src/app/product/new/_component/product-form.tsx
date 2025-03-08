@@ -1,7 +1,7 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm,FieldErrors } from "react-hook-form"
+import { useForm, FieldErrors } from "react-hook-form"
 import { useState } from "react"
 import { ProductDetail } from "@/product/new/_component/product-detail"
 import { StockDetail } from "@/product/new/_component/inventory"
@@ -11,7 +11,8 @@ import {
 } from "@/product/types/product-scheme"
 import { Tabs, Tab, Box } from "@mui/material"
 import { TabContext, TabPanel } from "@mui/lab"
-
+import { TypeATab } from "./type-tab-a"
+import { TypeBTab } from "./type-tab-b"
 interface ProductFormProps {
   defaultValues: ProductSchemaForm
 }
@@ -128,57 +129,16 @@ export const ProductForm: React.FC<ProductFormProps> = ({ defaultValues }) => {
 
       <TabContext value={tabValue}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs
-            value={tabValue}
-            onChange={(event, newValue) =>
-              handleTabChange(event, newValue as "typeA" | "typeB")
-            }
-          >
+          <Tabs value={tabValue} onChange={handleTabChange}>
             <Tab label="Type A" value="typeA" />
             <Tab label="Type B" value="typeB" />
           </Tabs>
         </Box>
         <TabPanel value="typeA">
-          <label htmlFor="specialCode">Special Code:</label>
-          <input
-            type="text"
-            id="specialCode"
-            {...register("tabs.specialCode")}
-            style={{
-              width: "100%",
-              padding: "8px",
-              border: "1px solid #ccc",
-              borderRadius: "4px",
-            }}
-          />
-          {errors.tabs &&
-            typeof errors.tabs === "object" &&
-            "specialCode" in errors.tabs && (
-              <p style={{ color: "red" }}>
-                {(errors.tabs as any).specialCode.message}
-              </p>
-            )}
+          <TypeATab control={control} errors={errors} />
         </TabPanel>
         <TabPanel value="typeB">
-          <label htmlFor="janCode">Jan Code:</label>
-          <input
-            type="text"
-            id="janCode"
-            {...register("tabs.janCode")}
-            style={{
-              width: "100%",
-              padding: "8px",
-              border: "1px solid #ccc",
-              borderRadius: "4px",
-            }}
-          />
-          {errors.tabs &&
-            typeof errors.tabs === "object" &&
-            "janCode" in errors.tabs && (
-              <p style={{ color: "red" }}>
-                {(errors.tabs as any).janCode.message}
-              </p>
-            )}
+          <TypeBTab control={control} errors={errors} />
         </TabPanel>
       </TabContext>
 
