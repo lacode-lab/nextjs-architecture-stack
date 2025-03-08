@@ -8,7 +8,6 @@ interface TypeATabProps {
 }
 
 export const TypeATab: React.FC<TypeATabProps> = ({ control, errors }) => {
-
   return (
     <div>
       <label htmlFor="specialCode">Special Code:</label>
