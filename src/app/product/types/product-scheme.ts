@@ -2,6 +2,9 @@ import * as z from "zod"
 import { isProductCode, toProductCode } from "@/types/product-code"
 import { productDetailSchema } from "./product-detail-scheme"
 import { inventorySchema } from "./inventory-schema"
+import { typeASchema } from "./type-a-schema"
+import { typeBSchema } from "./type-b-schema"
+
 
 export const productSchema = z.object({
   productCode: z
@@ -13,6 +16,8 @@ export const productSchema = z.object({
     .transform(toProductCode),
   productName: z.string().nullish(),
   caption: z.string().nullish(),
+  typeA: typeASchema,
+  typeB: typeBSchema,
   detail: productDetailSchema,
   inventory: inventorySchema,
 })
