@@ -21,6 +21,7 @@ export const productSchema = z.object({
   caption: z.string().nullish(),
   detail: productDetailSchema,
   inventory: inventorySchema,
+  selectedItems: z.array(z.string()),
   tabs: tabSchema,
 })
 

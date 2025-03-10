@@ -16,7 +16,6 @@ export const inventorySchema = z.object({
     .int()
     .min(1, "最大購入可能数は1以上で入力してください")
     .default(1),
-});
-
+})
 
 export type InventorySchemaForm = z.infer<typeof inventorySchema>

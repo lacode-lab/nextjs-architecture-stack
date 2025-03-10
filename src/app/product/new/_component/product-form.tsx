@@ -13,6 +13,7 @@ import { Tabs, Tab, Box } from "@mui/material"
 import { TabContext, TabPanel } from "@mui/lab"
 import { TypeATab } from "./type-tab-a"
 import { TypeBTab } from "./type-tab-b"
+import { MultiSelect } from "./multi-select"
 interface ProductFormProps {
   defaultValues: ProductSchemaForm
 }
@@ -126,7 +127,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ defaultValues }) => {
 
       <ProductDetail register={register} errors={errors} />
       <StockDetail register={register} errors={errors} />
-
+      <MultiSelect control={control} setValue={setValue} errors={errors} />
       <TabContext value={tabValue}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs value={tabValue} onChange={handleTabChange}>

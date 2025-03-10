@@ -38,6 +38,7 @@ export default async function Product() {
           minStock: data.inventory.minStock,
           maxPurchase: data.inventory.maxPurchase,
         },
+        selectedItems: [],
         tabs: {
           tabType: data.tabs?.tabType ?? "typeA",
           specialCode: data.tabs?.specialCode ?? "", // 初期値を設定
@@ -60,6 +61,7 @@ export default async function Product() {
           minStock: 0,
           maxPurchase: 0,
         },
+        selectedItems: [],
         tabs: {
           tabType: "typeA",
           specialCode: "", // 初期値
